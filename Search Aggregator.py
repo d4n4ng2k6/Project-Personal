@@ -1,8 +1,9 @@
 #import google
+
 from turtle import width
 from bs4 import BeautifulSoup
 from googlesearch import search
-from tkinter import ttk
+from tkinter import messagebox, ttk
 import tkinter as tk
 
 root = tk.Tk();
@@ -16,6 +17,13 @@ ResultFrame = tk.Frame(root)
 ResultFrame.grid(column=0,row=1)
 label = tk.Label(SearchFrame,text = "Properties Search Aggregator", font='Arial 15 bold')
 label.grid(column=0, row=0,columnspan= 3, padx=20, pady=30)
+def Search():
+    if len(entProp.get())== 0 and len(entCity.get())== 0 and len(entAdr.get())==0 :
+        messagebox.showinfo('Error','Not enough information')
+    else : 
+        Propname = entProp.get()
+        PropCity = entCity.get()
+        PropAddr = entAdr.get()
 
 # Start of GUI for property input
 labelProp = tk.Label(SearchFrame,text = "Property Name :")
@@ -30,7 +38,7 @@ labelAdr = tk.Label(SearchFrame,text = "Address :")
 labelAdr.grid (column=0, row=3, padx=10, pady=10, sticky=tk.W)
 entAdr = tk.Entry(SearchFrame,width=50)
 entAdr.grid(column=1, row=3, sticky=tk.W)
-BtnSearch = tk.Button(SearchFrame,text = "Search", width = 15)
+BtnSearch = tk.Button(SearchFrame,text = "Search", width = 15,command=Search)
 BtnSearch.grid (column = 1, row=4)
 #End of GUI property Input
 
@@ -47,10 +55,16 @@ tabControl.grid(column =0, row=6, padx=10, pady=10)
 #Add Component for Booking.com Tab
 ttk.Label(tabBooking, text="More Information from Booking.com").grid(column=0,row=0,padx=10,pady=10)
 ttk.Label(tabBooking, text="URL Link : ").grid(column=0,row=1,pady=20)
-tk.Text(tabBooking, width=30,height=2).grid(column=1,row=1,padx=10,columnspan=2)
+ttk.Label(tabBooking, text="Name : ").grid(column=0,row=2,pady=20)
+ttk.Label(tabBooking, text="Address :").grid(column=0,row=3,pady=20)
+BookingURL=tk.Text(tabBooking, width=60,height=1.5).grid(column=1,row=1,padx=10,columnspan=2)
+BookingName=tk.Text(tabBooking, width=60,height=1).grid(column=1,row=2,padx=10,columnspan=2)
+BookingAdr=tk.Text(tabBooking, width=60,height=1).grid(column=1,row=3,padx=10,columnspan=2)
 ttk.Label(tabExpedia, text="More Information from Expedia").grid(column=0,row=0,padx=10,pady=10)
 #Add Component for Expedia Tab
 #End UI of Tabbed Pane
 root.mainloop()
+
+
 
 #print ("Hello world")
